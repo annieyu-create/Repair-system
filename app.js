@@ -148,4 +148,20 @@
     btn.addEventListener("click", () => setFilter(btn.dataset.urgency));
   });
   loadList();
+
+  // 送出時若沒有網路，給出清楚的提示
+  window.addEventListener("offline", () => {
+    showMessage(formMessage, "目前沒有網路，恢復連線後才能送出報修。", "error");
+  });
+  window.addEventListener("online", () => {
+    formMessage.hidden = true;
+    loadList();
+  });
 })();
+
+// PWA：註冊 Service Worker（可加入主畫面、離線時仍能開啟頁面）
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
