@@ -64,7 +64,7 @@
     const rows = currentFilter === "全部"
       ? allRows
       : allRows.filter((row) => row.urgency === currentFilter);
-    list.replaceChildren();
+    list.textContent = "";
     if (allRows.length === 0) {
       showMessage(listMessage, "目前還沒有報修紀錄。", "info");
       return;
