@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 960" preserveAspectRatio="xMidYMid slice">
+  <!-- 報修登記網頁底圖：大海（自繪向量圖） -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7cc4ec"/>
+      <stop offset="1" stop-color="#d8f0fb"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a9fd1"/>
+      <stop offset="0.5" stop-color="#1d6fa8"/>
+      <stop offset="1" stop-color="#0b3d6b"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#fffbe6"/>
+      <stop offset="0.6" stop-color="#fff3b8" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#fff3b8" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- 天空與太陽 -->
+  <rect width="1440" height="340" fill="url(#sky)"/>
+  <circle cx="1100" cy="190" r="110" fill="url(#sun)"/>
+  <circle cx="1100" cy="190" r="46" fill="#fffbe6"/>
+
+  <!-- 雲 -->
+  <g fill="#ffffff" opacity="0.85">
+    <ellipse cx="260" cy="120" rx="90" ry="26"/>
+    <ellipse cx="320" cy="104" rx="60" ry="28"/>
+    <ellipse cx="640" cy="200" rx="70" ry="18"/>
+    <ellipse cx="690" cy="188" rx="44" ry="20"/>
+  </g>
+
+  <!-- 海面 -->
+  <rect y="320" width="1440" height="640" fill="url(#sea)"/>
+  <rect y="318" width="1440" height="4" fill="#bfe6f7" opacity="0.8"/>
+
+  <!-- 陽光倒影 -->
+  <g fill="#fff6c8" opacity="0.55">
+    <rect x="1050" y="336" width="100" height="4" rx="2"/>
+    <rect x="1065" y="352" width="70" height="4" rx="2"/>
+    <rect x="1040" y="370" width="120" height="3" rx="1.5"/>
+    <rect x="1075" y="388" width="50" height="3" rx="1.5"/>
+  </g>
+
+  <!-- 波浪（由遠到近） -->
+  <path d="M0 420 Q 90 400 180 420 T 360 420 T 540 420 T 720 420 T 900 420 T 1080 420 T 1260 420 T 1440 420 V 960 H 0 Z"
+        fill="#2b8bc4" opacity="0.6"/>
+  <path d="M0 540 Q 120 505 240 540 T 480 540 T 720 540 T 960 540 T 1200 540 T 1440 540 V 960 H 0 Z"
+        fill="#1f74ad" opacity="0.7"/>
+  <path d="M0 680 Q 160 630 320 680 T 640 680 T 960 680 T 1280 680 T 1600 680 V 960 H 0 Z"
+        fill="#155e93" opacity="0.8"/>
+  <path d="M0 820 Q 180 760 360 820 T 720 820 T 1080 820 T 1440 820 V 960 H 0 Z"
+        fill="#0d4777"/>
+
+  <!-- 浪花 -->
+  <g fill="none" stroke="#ffffff" stroke-linecap="round" opacity="0.5" stroke-width="3">
+    <path d="M140 536 q 40 -18 80 0"/>
+    <path d="M620 530 q 50 -20 100 0"/>
+    <path d="M1180 538 q 40 -16 80 0"/>
+    <path d="M300 676 q 60 -26 120 0"/>
+    <path d="M940 674 q 60 -26 120 0"/>
+  </g>
+</svg>

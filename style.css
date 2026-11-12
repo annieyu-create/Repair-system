@@ -18,16 +18,27 @@
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: #0b3d6b;
   color: var(--text);
   font-family: system-ui, -apple-system, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
   line-height: 1.6;
 }
 
+/* 大海底圖：固定在畫面後方，捲動時不動（iOS 不支援 background-attachment: fixed，改用固定定位的偽元素） */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: #1d6fa8 url("images/ocean-bg.svg?v=1") center top / cover no-repeat;
+}
+
+/* 標題列改為半透明深藍，讓底圖的天空與海透出來 */
 .site-header {
-  background: var(--primary);
+  background: rgba(11, 61, 107, 0.55);
   color: #fff;
   padding: 20px 16px;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
 }
 .site-header h1 { margin: 0; font-size: 1.5rem; }
 .site-header p { margin: 4px 0 0; opacity: 0.9; font-size: 0.95rem; }
@@ -41,7 +52,7 @@ main {
 .card {
   background: var(--card);
   border-radius: var(--radius);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(5, 35, 70, 0.25);
   padding: 16px;
   margin-bottom: 16px;
 }
