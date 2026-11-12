@@ -45,10 +45,32 @@
     return node;
   }
 
-  function renderList(rows) {
+  // 最近一次從資料庫讀到的清單；篩選只在這份資料上進行，不另外查詢資料庫
+  let allRows = [];
+  let currentFilter = "全部";
+  const filterButtons = document.querySelectorAll(".filter-btn");
+
+  function setFilter(urgency) {
+    currentFilter = urgency;
+    filterButtons.forEach((btn) => {
+      const active = btn.dataset.urgency === urgency;
+      btn.classList.toggle("is-active", active);
+      btn.setAttribute("aria-pressed", String(active));
+    });
+    renderList();
+  }
+
+  function renderList() {
+    const rows = currentFilter === "全部"
+      ? allRows
+      : allRows.filter((row) => row.urgency === currentFilter);
     list.replaceChildren();
-    if (rows.length === 0) {
+    if (allRows.length === 0) {
       showMessage(listMessage, "目前還沒有報修紀錄。", "info");
+      return;
+    }
+    if (rows.length === 0) {
+      showMessage(listMessage, "最近 20 筆中沒有緊急程度為「" + currentFilter + "」的報修。", "info");
       return;
     }
     listMessage.hidden = true;
@@ -82,7 +104,8 @@
       showMessage(listMessage, "清單載入失敗：" + error.message, "error");
       return;
     }
-    renderList(data);
+    allRows = data;
+    renderList();
   }
 
   function readForm() {
@@ -121,5 +144,8 @@
   });
 
   refreshBtn.addEventListener("click", loadList);
+  filterButtons.forEach((btn) => {
+    btn.addEventListener("click", () => setFilter(btn.dataset.urgency));
+  });
   loadList();
 })();

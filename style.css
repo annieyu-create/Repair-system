@@ -135,6 +135,22 @@ button.secondary {
 }
 .list-head h2 { margin: 0; }
 
+/* 緊急程度篩選按鈕：選到的按鈕為實心藍底 */
+.filter-bar { display: flex; gap: 8px; margin-top: 12px; }
+.filter-btn {
+  flex: 1;
+  min-height: 44px;
+  background: #fff;
+  color: var(--primary);
+  border: 1px solid var(--border);
+}
+.filter-btn.is-active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
 .request-list { list-style: none; padding: 0; margin: 12px 0 0; }
 .request {
   border-top: 1px solid var(--border);
@@ -149,7 +165,8 @@ button.secondary {
   background: var(--info-bg);
   color: var(--primary);
 }
-.badge.urgency-高 { background: var(--error-bg); color: var(--error-text); }
+/* 緊急程度「高」：紅底白字，在清單中最醒目 */
+.badge.urgency-高 { background: #d93025; color: #fff; font-weight: 600; }
 .badge.urgency-中 { background: #fff4e0; color: #8a5a00; }
 .badge.urgency-低 { background: var(--success-bg); color: var(--success-text); }
 .badge.status { background: #eceff3; color: var(--muted); }
