@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2f5597">
+  <title>報修登記</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>報修登記</h1>
+    <p>填寫下方表單送出報修，管理員會依清單處理。</p>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title">新增報修</h2>
+      <form id="repair-form" novalidate>
+        <label for="reporter_name">報修人 <span class="req">*</span></label>
+        <input id="reporter_name" name="reporter_name" type="text" maxlength="50" required autocomplete="name">
+
+        <label for="location">地點或部門 <span class="req">*</span></label>
+        <input id="location" name="location" type="text" maxlength="100" required>
+
+        <label for="category">類別 <span class="req">*</span></label>
+        <select id="category" name="category" required>
+          <option value="" selected disabled>請選擇</option>
+          <option value="設備">設備</option>
+          <option value="網路">網路</option>
+          <option value="環境">環境</option>
+          <option value="其他">其他</option>
+        </select>
+
+        <label for="description">問題說明 <span class="req">*</span></label>
+        <textarea id="description" name="description" rows="4" maxlength="1000" required></textarea>
+
+        <fieldset>
+          <legend>緊急程度 <span class="req">*</span></legend>
+          <div class="segmented">
+            <input type="radio" id="urgency-low" name="urgency" value="低">
+            <label for="urgency-low">低</label>
+            <input type="radio" id="urgency-mid" name="urgency" value="中" checked>
+            <label for="urgency-mid">中</label>
+            <input type="radio" id="urgency-high" name="urgency" value="高">
+            <label for="urgency-high">高</label>
+          </div>
+        </fieldset>
+
+        <button id="submit-btn" type="submit">送出報修</button>
+        <p id="form-message" class="message" role="status" aria-live="polite" hidden></p>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="list-title">
+      <div class="list-head">
+        <h2 id="list-title">最近 20 筆報修</h2>
+        <button id="refresh-btn" type="button" class="secondary">重新整理</button>
+      </div>
+      <p id="list-message" class="message" hidden></p>
+      <ul id="request-list" class="request-list"></ul>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
