@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- 報修登記 App 圖示：海洋漸層底＋白色扳手 -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a9fd1"/>
+      <stop offset="1" stop-color="#0b3d6b"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" fill="url(#bg)"/>
+  <path d="M0 380 Q 64 350 128 380 T 256 380 T 384 380 T 512 380 V 512 H 0 Z" fill="#ffffff" opacity="0.12"/>
+  <path d="M0 430 Q 64 400 128 430 T 256 430 T 384 430 T 512 430 V 512 H 0 Z" fill="#ffffff" opacity="0.12"/>
+  <!-- 扳手：置中於安全區內，可同時作為 maskable 圖示 -->
+  <mask id="cut">
+    <rect x="-256" y="-256" width="512" height="512" fill="#fff"/>
+    <rect x="-30" y="-200" width="60" height="110" fill="#000"/>
+  </mask>
+  <g transform="translate(256 244) rotate(45) scale(0.88)">
+    <g mask="url(#cut)" fill="#ffffff">
+      <circle cx="0" cy="-100" r="70"/>
+      <rect x="-26" y="-60" width="52" height="190" rx="26"/>
+    </g>
+  </g></svg>
