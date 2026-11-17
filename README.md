@@ -48,7 +48,7 @@
 - `sw.js` 的 `CACHE_VERSION` 更新為 `repair-v20261117-2`，並加入訪客登錄頁檔案。
 
 #### 第一次設定（在 Supabase 後台）
-1. SQL Editor 整段執行 `supabase/expo_visitors_setup.sql`。不論還沒建表或已建過舊版都適用，會自動升級到最新版，重複執行也不會出錯。（`expo_visitors.sql` 只能用在還沒建表時；`expo_visitors_upgrade_v2.sql`、`expo_visitors_upgrade_v3.sql` 為舊的分段升級檔，已由 setup 取代。）
+1. SQL Editor 整段執行 `supabase/expo_visitors_setup.sql`。不論還沒建表或已建過舊版都適用，會自動升級到最新版，重複執行也不會出錯。（`expo_visitors.sql` 內容與 setup 相同，執行哪一個都可以；`expo_visitors_upgrade_v2.sql`、`expo_visitors_upgrade_v3.sql` 為舊的分段升級檔，已由 setup 取代。）
 2. Authentication → Users → Add user，建立要下載 Excel 的帳號（Email＋密碼）。
 3. SQL Editor 執行：`insert into public.expo_admins (user_id) select id from auth.users where email = '該帳號 email';`
 4. 建議到 Authentication → Sign In / Providers 關閉「Allow new users to sign up」，避免陌生人自行註冊（即使註冊了，沒加進 expo_admins 也讀不到名單）。
