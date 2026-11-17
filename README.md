@@ -65,3 +65,8 @@
 - 新增 `supabase/expo_visitors_setup.sql`：自動判斷資料表目前是「未建立／第一版／第二版／最新版」，補齊缺少的欄位、權限與 RLS 政策，可重複執行。
 - 起因：已建過資料表時再執行 `expo_visitors.sql` 會出現 `relation "expo_visitors" already exists`。
 - 已用 PGlite（WASM 版 PostgreSQL 16）測試四種起始狀態各執行兩次：舊資料保留並補上編號與日期；anon 只能新增、不能讀取或修改；未授權的登入帳號讀不到資料，授權帳號可讀取全部。
+
+### 國別改為下拉選單
+- 國別改為下拉選單，列出 28 個常見國家；選「其他（自行輸入）」時會出現輸入框，可自行填寫。
+- 選了「其他」卻沒填內容時，會提示「請填寫：國別」並跳到輸入框。
+- `visitor.html` 版本號更新為 `visitor.css?v=20261117-5`、`visitor.js?v=20261117-4`，`sw.js` 的 `CACHE_VERSION` 更新為 `repair-v20261117-4`。
