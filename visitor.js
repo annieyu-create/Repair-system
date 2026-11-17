@@ -66,6 +66,14 @@
   staffInput.value = storeGet(STAFF_KEY, "");
   dateInput.value = today();
 
+  // 國別：下拉選單選「其他」時，改為自行輸入
+  const countrySelect = document.getElementById("country");
+  const countryOther = document.getElementById("country_other");
+  countrySelect.addEventListener("change", () => {
+    countryOther.hidden = countrySelect.value !== "__other";
+    if (!countryOther.hidden) countryOther.focus();
+  });
+
   othersBox.addEventListener("change", () => {
     otherInput.hidden = !othersBox.checked;
     if (othersBox.checked) otherInput.focus();
@@ -103,6 +111,11 @@
       if (def.required && !value) missing.push(key);
       // 選填欄位留白時存成 null
       payload[key] = value || null;
+    }
+    // 國別選「其他」時，改用自行輸入的內容
+    if (payload.country === "__other") {
+      payload.country = String(fd.get("country_other") || "").trim() || null;
+      if (!payload.country) missing.push("country_other");
     }
     payload.interested_items = fd.getAll("interested_items").map(String);
     const other = String(fd.get("interested_other") || "").trim();
@@ -188,6 +201,7 @@
     staffInput.value = staff || "";
     dateInput.value = date || today();
     otherInput.hidden = true;
+    countryOther.hidden = true;
     document.getElementById("company_name").focus();
   }
 
@@ -195,7 +209,7 @@
     event.preventDefault();
     const { payload, missing } = readForm();
     if (missing.length > 0) {
-      showMessage("請填寫：" + missing.map((k) => TEXT_FIELDS[k].label).join("、"), "error");
+      showMessage("請填寫：" + missing.map((k) => (TEXT_FIELDS[k] || TEXT_FIELDS.country).label).join("、"), "error");
       document.getElementById(missing[0]).focus();
       return;
     }

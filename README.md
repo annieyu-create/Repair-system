@@ -48,7 +48,7 @@
 - `sw.js` 的 `CACHE_VERSION` 更新為 `repair-v20261117-2`，並加入訪客登錄頁檔案。
 
 #### 第一次設定（在 Supabase 後台）
-1. SQL Editor 執行 `supabase/expo_visitors.sql`。若已建過資料表：執行過第一版的請依序執行 `expo_visitors_upgrade_v2.sql`、`expo_visitors_upgrade_v3.sql`；執行過第二版的只需執行 `expo_visitors_upgrade_v3.sql`。
+1. SQL Editor 整段執行 `supabase/expo_visitors_setup.sql`。不論還沒建表或已建過舊版都適用，會自動升級到最新版，重複執行也不會出錯。（`expo_visitors.sql` 內容與 setup 相同，執行哪一個都可以；`expo_visitors_upgrade_v2.sql`、`expo_visitors_upgrade_v3.sql` 為舊的分段升級檔，已由 setup 取代。）
 2. Authentication → Users → Add user，建立要下載 Excel 的帳號（Email＋密碼）。
 3. SQL Editor 執行：`insert into public.expo_admins (user_id) select id from auth.users where email = '該帳號 email';`
 4. 建議到 Authentication → Sign In / Providers 關閉「Allow new users to sign up」，避免陌生人自行註冊（即使註冊了，沒加進 expo_admins 也讀不到名單）。
@@ -60,3 +60,13 @@
 - 匯出頁的日期範圍改用「日期」欄位篩選；Excel 欄位順序：編號、日期、公司名稱、國別、人名、電話、公司網站、訪客性質、有興趣的品項、其他品項說明、討論事項、登錄人員、登錄時間。
 - 離線暫存的資料在上傳時才取得編號，所以編號代表「上傳順序」，不一定等於拜訪的先後。
 - 新增 `supabase/expo_visitors_upgrade_v3.sql`：已建表者用來補上編號（舊資料依登錄時間編號）與日期，並把舊的「經銷商／代理商」改為「經銷商」。
+
+### 一鍵設定 SQL
+- 新增 `supabase/expo_visitors_setup.sql`：自動判斷資料表目前是「未建立／第一版／第二版／最新版」，補齊缺少的欄位、權限與 RLS 政策，可重複執行。
+- 起因：已建過資料表時再執行 `expo_visitors.sql` 會出現 `relation "expo_visitors" already exists`。
+- 已用 PGlite（WASM 版 PostgreSQL 16）測試四種起始狀態各執行兩次：舊資料保留並補上編號與日期；anon 只能新增、不能讀取或修改；未授權的登入帳號讀不到資料，授權帳號可讀取全部。
+
+### 國別改為下拉選單
+- 國別改為下拉選單，列出 28 個常見國家；選「其他（自行輸入）」時會出現輸入框，可自行填寫。
+- 選了「其他」卻沒填內容時，會提示「請填寫：國別」並跳到輸入框。
+- `visitor.html` 版本號更新為 `visitor.css?v=20261117-5`、`visitor.js?v=20261117-4`，`sw.js` 的 `CACHE_VERSION` 更新為 `repair-v20261117-4`。

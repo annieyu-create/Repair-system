@@ -4,7 +4,7 @@
 // - CDN 上固定版本的 supabase-js：版本不會變，優先用快取。
 // - Supabase 資料 API：一律走網路、不快取，清單與送出都是即時資料。
 // 修改網頁檔案後，請一併更新 CACHE_VERSION。
-const CACHE_VERSION = "repair-v20261117-3";
+const CACHE_VERSION = "repair-v20261117-4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,8 +18,8 @@ const APP_SHELL = [
   "./icons/apple-touch-icon.png",
   // 展覽訪客登錄（手機 App）
   "./visitor.html",
-  "./visitor.css?v=20261117-4",
-  "./visitor.js?v=20261117-3",
+  "./visitor.css?v=20261117-5",
+  "./visitor.js?v=20261117-4",
   "./visitor.webmanifest",
   "./icons/visitor-icon-192.png",
   "./icons/visitor-icon-512.png",

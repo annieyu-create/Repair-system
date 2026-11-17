@@ -37,7 +37,7 @@
 }
 .checks input { width: 20px; height: 20px; accent-color: var(--primary); flex: none; }
 .checks label:has(input:checked) { border-color: var(--primary); background: var(--info-bg); }
-#interested_other { margin-top: 8px; }
+#interested_other, #country_other { margin-top: 8px; }
 
 /* 尚未上傳（離線暫存）提示 */
 .pending-bar {
