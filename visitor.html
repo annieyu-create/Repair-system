@@ -5,9 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#2f5597">
   <title>展覽訪客登錄</title>
-  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <!-- PWA：手機可「加入主畫面」，以 App 方式開啟 -->
+  <link rel="manifest" href="visitor.webmanifest">
+  <link rel="icon" href="icons/visitor-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/visitor-apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="訪客登錄">
   <link rel="stylesheet" href="style.css?v=20261112-4">
-  <link rel="stylesheet" href="visitor.css?v=20261117-1">
+  <link rel="stylesheet" href="visitor.css?v=20261117-3">
 </head>
 <body>
   <header class="site-header">
@@ -19,6 +25,9 @@
     <section class="card" aria-labelledby="form-title">
       <h2 id="form-title">新增訪客</h2>
       <form id="visitor-form" novalidate>
+        <label for="staff_name">登錄人員 <span class="en">Staff</span> <span class="opt">選填・本機記住</span></label>
+        <input id="staff_name" name="staff_name" type="text" maxlength="50" placeholder="填一次即可，之後這支手機會自動帶入">
+
         <label for="company_name">公司名稱 <span class="en">Company</span> <span class="req">*</span></label>
         <input id="company_name" name="company_name" type="text" maxlength="100" required autocomplete="organization">
 
@@ -75,26 +84,39 @@
           <option value="其他">其他 Other</option>
         </select>
 
-        <label for="interested_items">有興趣的品項 <span class="en">Products of Interest</span> <span class="opt">選填</span></label>
-        <textarea id="interested_items" name="interested_items" rows="3" maxlength="500"></textarea>
+        <fieldset>
+          <legend>有興趣的品項 <span class="en">Products of Interest</span> <span class="opt">可複選</span></legend>
+          <div class="checks">
+            <label><input type="checkbox" name="interested_items" value="Scaffolding Accessories"> Scaffolding Accessories</label>
+            <label><input type="checkbox" name="interested_items" value="Ring System Scaffolding"> Ring System Scaffolding</label>
+            <label><input type="checkbox" name="interested_items" value="Formwork Accessories"> Formwork Accessories</label>
+            <label><input type="checkbox" name="interested_items" value="System Formwork"> System Formwork</label>
+            <label><input type="checkbox" name="interested_items" value="Others" id="items-others"> Others</label>
+          </div>
+          <input id="interested_other" name="interested_other" type="text" maxlength="200" placeholder="Others 品項說明" hidden>
+        </fieldset>
 
         <label for="discussion">討論事項 <span class="en">Discussion Notes</span> <span class="opt">選填</span></label>
         <textarea id="discussion" name="discussion" rows="5" maxlength="2000" placeholder="例：詢價數量、交期、樣品需求、後續聯繫方式"></textarea>
 
         <button id="submit-btn" type="submit">送出登錄</button>
+        <div id="pending-bar" class="pending-bar" hidden>
+          <span id="pending-text"></span>
+          <button id="sync-btn" type="button" class="secondary">立即上傳</button>
+        </div>
         <p id="form-message" class="message" role="status" aria-live="polite" hidden></p>
       </form>
     </section>
 
     <section class="card" aria-labelledby="recent-title">
       <h2 id="recent-title">本機剛登錄的訪客</h2>
-      <p class="note">為保護訪客個資，網頁不顯示全部名單；這裡只列出這台裝置本次開啟後送出的公司。完整名單請至 Supabase 後台查看。</p>
+      <p class="note">為保護訪客個資，手機上不顯示全部名單；這裡只列出這台手機這次開啟後登錄的公司。所有手機的資料會集中在同一個資料庫，請用電腦開啟<a href="visitor-admin.html">名單匯出頁</a>下載 Excel。</p>
       <ul id="recent-list" class="recent-list"></ul>
     </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="config.js?v=20261112-4"></script>
-  <script src="visitor.js?v=20261117-1"></script>
+  <script src="visitor.js?v=20261117-2"></script>
 </body>
 </html>

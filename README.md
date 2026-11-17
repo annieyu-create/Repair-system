@@ -4,7 +4,8 @@
 
 - [報修欄位表（Excel）](文件/報修欄位表.xlsx)
 - [報修登記網頁](https://annieyu-create.github.io/Repair-system/)（GitHub Pages，原始碼為根目錄的 index.html、style.css、app.js、config.js）
-- [展覽訪客登錄網頁](https://annieyu-create.github.io/Repair-system/visitor.html)（原始碼為 visitor.html、visitor.css、visitor.js，共用 style.css、config.js）
+- [展覽訪客登錄（手機 App）](https://annieyu-create.github.io/Repair-system/visitor.html)（原始碼為 visitor.html、visitor.css、visitor.js，共用 style.css、config.js）
+- [訪客名單匯出（電腦下載 Excel）](https://annieyu-create.github.io/Repair-system/visitor-admin.html)（原始碼為 visitor-admin.html、visitor-admin.js）
 
 ## 變更紀錄
 
@@ -35,3 +36,18 @@
 - 國別可直接輸入，也可從常見國家清單選擇；公司性質為固定選項（製造商、貿易商／進口商、經銷商／代理商、零售商、品牌商、其他）。
 - 訪客資料含姓名與電話，因此網頁**只能新增、不能讀取**名單；頁面只列出這台裝置本次送出的公司。完整名單請到 Supabase 後台查看。
 - 使用前請先在 Supabase SQL Editor 執行 `supabase/expo_visitors.sql` 建立 `expo_visitors` 資料表與存取規則。
+
+### 展覽訪客：產品類別、多支手機、匯出 Excel
+- 「有興趣的品項」改為產品類別複選：Scaffolding Accessories、Ring System Scaffolding、Formwork Accessories、System Formwork、Others；勾 Others 時可填品項說明。
+- 新增「登錄人員」欄位（選填），每支手機填一次後會自動記住，Excel 可看出是誰登錄的。
+- 手機 App：用手機瀏覽器開啟訪客登錄頁，選「加入主畫面」即可像 App 一樣使用（圖示為藍底訪客名牌）。
+- 多支手機：所有手機都寫入同一個 Supabase 資料表，不需要另外合併。
+- 展場網路不穩：送出時若沒有網路，資料先存在該手機，恢復連線或下次開啟時自動補上傳；每筆資料有唯一編號，重送不會重複。
+- 匯出 Excel：用電腦開啟 `visitor-admin.html`，以授權帳號登入，可選日期範圍，下載 `expo-visitors_日期_時間.xlsx`。
+- `sw.js` 的 `CACHE_VERSION` 更新為 `repair-v20261117-2`，並加入訪客登錄頁檔案。
+
+#### 第一次設定（在 Supabase 後台）
+1. SQL Editor 執行 `supabase/expo_visitors.sql`（若已執行過舊版，改執行 `supabase/expo_visitors_upgrade_v2.sql`）。
+2. Authentication → Users → Add user，建立要下載 Excel 的帳號（Email＋密碼）。
+3. SQL Editor 執行：`insert into public.expo_admins (user_id) select id from auth.users where email = '該帳號 email';`
+4. 建議到 Authentication → Sign In / Providers 關閉「Allow new users to sign up」，避免陌生人自行註冊（即使註冊了，沒加進 expo_admins 也讀不到名單）。

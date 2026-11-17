@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="96" fill="#2f5597"/>
+  <!-- 訪客名牌：吊繩、卡片、人像與文字線 -->
+  <path d="M206 64h100v86h-100z" fill="#9fb8e0"/>
+  <rect x="112" y="128" width="288" height="320" rx="32" fill="#fff"/>
+  <rect x="216" y="112" width="80" height="40" rx="12" fill="#22427a"/>
+  <circle cx="256" cy="240" r="52" fill="#2f5597"/>
+  <path d="M164 368c10-52 48-80 92-80s82 28 92 80z" fill="#2f5597"/>
+  <rect x="172" y="392" width="168" height="20" rx="10" fill="#f2a900"/>
+</svg>

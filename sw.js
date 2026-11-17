@@ -1,10 +1,10 @@
-// 報修登記 PWA Service Worker
+// 報修登記與展覽訪客登錄 PWA Service Worker
 // 策略：
 // - 網頁本身的檔案（HTML/CSS/JS/圖示）：先抓網路最新版，失敗（離線）才用快取，避免手機一直看到舊版。
 // - CDN 上固定版本的 supabase-js：版本不會變，優先用快取。
 // - Supabase 資料 API：一律走網路、不快取，清單與送出都是即時資料。
 // 修改網頁檔案後，請一併更新 CACHE_VERSION。
-const CACHE_VERSION = "repair-v20261112-4";
+const CACHE_VERSION = "repair-v20261117-2";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -16,6 +16,14 @@ const APP_SHELL = [
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/apple-touch-icon.png",
+  // 展覽訪客登錄（手機 App）
+  "./visitor.html",
+  "./visitor.css?v=20261117-3",
+  "./visitor.js?v=20261117-2",
+  "./visitor.webmanifest",
+  "./icons/visitor-icon-192.png",
+  "./icons/visitor-icon-512.png",
+  "./icons/visitor-apple-touch-icon.png",
 ];
 const SUPABASE_JS = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js";
 
