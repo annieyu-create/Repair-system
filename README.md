@@ -5,6 +5,7 @@
 - [報修欄位表（Excel）](文件/報修欄位表.xlsx)
 - [報修登記網頁](https://annieyu-create.github.io/Repair-system/)（GitHub Pages，原始碼為根目錄的 index.html、style.css、app.js、config.js）
 - [展覽訪客登錄（手機 App）](https://annieyu-create.github.io/Repair-system/visitor.html)（原始碼為 visitor.html、visitor.css、visitor.js，共用 style.css、config.js）
+- [展覽訪客登錄 QR Code](文件/展覽訪客登錄_QRCode.png)（掃描直接開啟手機登錄頁）
 - [訪客名單匯出（電腦下載 Excel）](https://annieyu-create.github.io/Repair-system/visitor-admin.html)（原始碼為 visitor-admin.html、visitor-admin.js）
 
 ## 變更紀錄
