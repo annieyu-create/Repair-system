@@ -1,0 +1,20 @@
+/* 展覽訪客登錄頁：沿用 style.css，只補上本頁需要的樣式 */
+.en { font-weight: 400; font-size: 0.85em; opacity: 0.75; }
+.site-header h1 .en { display: block; font-size: 0.95rem; opacity: 0.85; }
+.opt {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: var(--info-bg);
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+.note { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.recent-list { list-style: none; padding: 0; margin: 12px 0 0; }
+.recent-list li {
+  border-top: 1px solid var(--border);
+  padding: 10px 0;
+  overflow-wrap: anywhere;
+}
+.recent-list li:first-child { border-top: 0; }
+.recent-list .meta { color: var(--muted); font-size: 0.85rem; }

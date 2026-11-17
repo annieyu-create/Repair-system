@@ -4,6 +4,7 @@
 
 - [報修欄位表（Excel）](文件/報修欄位表.xlsx)
 - [報修登記網頁](https://annieyu-create.github.io/Repair-system/)（GitHub Pages，原始碼為根目錄的 index.html、style.css、app.js、config.js）
+- [展覽訪客登錄網頁](https://annieyu-create.github.io/Repair-system/visitor.html)（原始碼為 visitor.html、visitor.css、visitor.js，共用 style.css、config.js）
 
 ## 變更紀錄
 
@@ -27,3 +28,10 @@
 - 手機可把網頁「加入主畫面」，之後像 App 一樣全螢幕開啟；沒有網路時仍能打開頁面，但送出報修與讀取清單需要連線。
 - 快取策略：網頁檔案先抓網路最新版、離線才用快取；Supabase 資料一律即時讀取、不快取。
 - 之後修改網頁檔案時，請同時更新 `index.html` 的 `?v=` 版本號，以及 `sw.js` 的 `CACHE_VERSION` 與 `APP_SHELL` 中的版本號。
+
+### 新增國外展覽訪客登錄表單
+- 新增 `visitor.html`：欄位為公司名稱、國別、人名、電話、公司網站、公司性質、有興趣的品項、討論事項；登錄時間由資料庫自動產生。
+- 必填：公司名稱、國別、人名、公司性質；其餘選填。標籤為中英對照，方便國外訪客自行填寫。
+- 國別可直接輸入，也可從常見國家清單選擇；公司性質為固定選項（製造商、貿易商／進口商、經銷商／代理商、零售商、品牌商、其他）。
+- 訪客資料含姓名與電話，因此網頁**只能新增、不能讀取**名單；頁面只列出這台裝置本次送出的公司。完整名單請到 Supabase 後台查看。
+- 使用前請先在 Supabase SQL Editor 執行 `supabase/expo_visitors.sql` 建立 `expo_visitors` 資料表與存取規則。
