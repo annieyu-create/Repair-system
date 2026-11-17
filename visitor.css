@@ -37,7 +37,12 @@
 }
 .checks input { width: 20px; height: 20px; accent-color: var(--primary); flex: none; }
 .checks label:has(input:checked) { border-color: var(--primary); background: var(--info-bg); }
-#interested_other, #country_other { margin-top: 8px; }
+#interested_other { margin-top: 8px; }
+
+/* 國別：左邊輸入框＋右邊下拉選單 */
+.combo { display: flex; gap: 8px; }
+.combo input { flex: 1; min-width: 0; }
+.combo select { width: auto; flex: none; max-width: 40%; color: var(--primary); font-weight: 600; }
 
 /* 尚未上傳（離線暫存）提示 */
 .pending-bar {
@@ -83,3 +88,6 @@ input[type="date"], input[type="email"], input[type="password"] {
 .preview th, .preview td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
 .preview th { background: var(--info-bg); white-space: nowrap; }
 .user-line { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); }
+
+/* 頁面底部版本號：確認手機上看到的是不是最新版 */
+.version { text-align: center; color: #fff; opacity: 0.8; font-size: 0.8rem; margin: 0 0 16px; }

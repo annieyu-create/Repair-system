@@ -13,7 +13,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="訪客登錄">
   <link rel="stylesheet" href="style.css?v=20261112-4">
-  <link rel="stylesheet" href="visitor.css?v=20261117-5">
+  <link rel="stylesheet" href="visitor.css?v=20261117-7">
 </head>
 <body>
   <header class="site-header">
@@ -36,39 +36,40 @@
         <input id="company_name" name="company_name" type="text" maxlength="100" required autocomplete="organization">
 
         <label for="country">國別 <span class="en">Country</span> <span class="req">*</span></label>
-        <select id="country" name="country" required>
-          <option value="" selected disabled>請選擇</option>
-          <option value="美國 USA">美國 USA</option>
-          <option value="加拿大 Canada">加拿大 Canada</option>
-          <option value="墨西哥 Mexico">墨西哥 Mexico</option>
-          <option value="巴西 Brazil">巴西 Brazil</option>
-          <option value="英國 UK">英國 UK</option>
-          <option value="德國 Germany">德國 Germany</option>
-          <option value="法國 France">法國 France</option>
-          <option value="義大利 Italy">義大利 Italy</option>
-          <option value="西班牙 Spain">西班牙 Spain</option>
-          <option value="荷蘭 Netherlands">荷蘭 Netherlands</option>
-          <option value="波蘭 Poland">波蘭 Poland</option>
-          <option value="土耳其 Türkiye">土耳其 Türkiye</option>
-          <option value="阿拉伯聯合大公國 UAE">阿拉伯聯合大公國 UAE</option>
-          <option value="沙烏地阿拉伯 Saudi Arabia">沙烏地阿拉伯 Saudi Arabia</option>
-          <option value="印度 India">印度 India</option>
-          <option value="日本 Japan">日本 Japan</option>
-          <option value="韓國 Korea">韓國 Korea</option>
-          <option value="中國大陸 China">中國大陸 China</option>
-          <option value="香港 Hong Kong">香港 Hong Kong</option>
-          <option value="新加坡 Singapore">新加坡 Singapore</option>
-          <option value="馬來西亞 Malaysia">馬來西亞 Malaysia</option>
-          <option value="泰國 Thailand">泰國 Thailand</option>
-          <option value="越南 Vietnam">越南 Vietnam</option>
-          <option value="印尼 Indonesia">印尼 Indonesia</option>
-          <option value="菲律賓 Philippines">菲律賓 Philippines</option>
-          <option value="澳洲 Australia">澳洲 Australia</option>
-          <option value="紐西蘭 New Zealand">紐西蘭 New Zealand</option>
-          <option value="南非 South Africa">南非 South Africa</option>
-          <option value="__other">其他（自行輸入） Other</option>
-        </select>
-        <input id="country_other" name="country_other" type="text" maxlength="50" autocomplete="country-name" placeholder="請輸入國別" aria-label="其他國別" hidden>
+        <div class="combo">
+          <input id="country" name="country" type="text" maxlength="50" required autocomplete="country-name" placeholder="直接輸入，或從右邊選單選擇">
+          <select id="country_pick" aria-label="從清單選擇國別">
+            <option value="" selected>選單</option>
+            <option value="美國 USA">美國 USA</option>
+            <option value="加拿大 Canada">加拿大 Canada</option>
+            <option value="墨西哥 Mexico">墨西哥 Mexico</option>
+            <option value="巴西 Brazil">巴西 Brazil</option>
+            <option value="英國 UK">英國 UK</option>
+            <option value="德國 Germany">德國 Germany</option>
+            <option value="法國 France">法國 France</option>
+            <option value="義大利 Italy">義大利 Italy</option>
+            <option value="西班牙 Spain">西班牙 Spain</option>
+            <option value="荷蘭 Netherlands">荷蘭 Netherlands</option>
+            <option value="波蘭 Poland">波蘭 Poland</option>
+            <option value="土耳其 Türkiye">土耳其 Türkiye</option>
+            <option value="阿拉伯聯合大公國 UAE">阿拉伯聯合大公國 UAE</option>
+            <option value="沙烏地阿拉伯 Saudi Arabia">沙烏地阿拉伯 Saudi Arabia</option>
+            <option value="印度 India">印度 India</option>
+            <option value="日本 Japan">日本 Japan</option>
+            <option value="韓國 Korea">韓國 Korea</option>
+            <option value="中國大陸 China">中國大陸 China</option>
+            <option value="香港 Hong Kong">香港 Hong Kong</option>
+            <option value="新加坡 Singapore">新加坡 Singapore</option>
+            <option value="馬來西亞 Malaysia">馬來西亞 Malaysia</option>
+            <option value="泰國 Thailand">泰國 Thailand</option>
+            <option value="越南 Vietnam">越南 Vietnam</option>
+            <option value="印尼 Indonesia">印尼 Indonesia</option>
+            <option value="菲律賓 Philippines">菲律賓 Philippines</option>
+            <option value="澳洲 Australia">澳洲 Australia</option>
+            <option value="紐西蘭 New Zealand">紐西蘭 New Zealand</option>
+            <option value="南非 South Africa">南非 South Africa</option>
+          </select>
+        </div>
 
         <label for="contact_name">人名 <span class="en">Name</span> <span class="req">*</span></label>
         <input id="contact_name" name="contact_name" type="text" maxlength="50" required autocomplete="name">
@@ -117,10 +118,11 @@
       <p class="note">為保護訪客個資，手機上不顯示全部名單；這裡只列出這台手機這次開啟後登錄的公司。所有手機的資料會集中在同一個資料庫，請用電腦開啟<a href="visitor-admin.html">名單匯出頁</a>下載 Excel。</p>
       <ul id="recent-list" class="recent-list"></ul>
     </section>
+    <p class="version">版本 2026-11-17-6</p>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="config.js?v=20261112-4"></script>
-  <script src="visitor.js?v=20261117-4"></script>
+  <script src="visitor.js?v=20261117-5"></script>
 </body>
 </html>
