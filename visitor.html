@@ -13,7 +13,7 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="訪客登錄">
   <link rel="stylesheet" href="style.css?v=20261112-4">
-  <link rel="stylesheet" href="visitor.css?v=20261117-3">
+  <link rel="stylesheet" href="visitor.css?v=20261117-4">
 </head>
 <body>
   <header class="site-header">
@@ -27,6 +27,10 @@
       <form id="visitor-form" novalidate>
         <label for="staff_name">登錄人員 <span class="en">Staff</span> <span class="opt">選填・本機記住</span></label>
         <input id="staff_name" name="staff_name" type="text" maxlength="50" placeholder="填一次即可，之後這支手機會自動帶入">
+
+        <label for="visit_date">日期 <span class="en">Date</span> <span class="req">*</span></label>
+        <input id="visit_date" name="visit_date" type="date" required>
+        <p class="hint">編號由系統依登錄順序自動產生，不需填寫。</p>
 
         <label for="company_name">公司名稱 <span class="en">Company</span> <span class="req">*</span></label>
         <input id="company_name" name="company_name" type="text" maxlength="100" required autocomplete="organization">
@@ -73,15 +77,13 @@
         <label for="website">公司網站 <span class="en">Website</span> <span class="opt">選填</span></label>
         <input id="website" name="website" type="text" inputmode="url" maxlength="200" autocomplete="url" placeholder="例：www.example.com">
 
-        <label for="company_type">公司性質 <span class="en">Business Type</span> <span class="req">*</span></label>
-        <select id="company_type" name="company_type" required>
+        <label for="visitor_type">訪客性質 <span class="en">Visitor Type</span> <span class="req">*</span></label>
+        <select id="visitor_type" name="visitor_type" required>
           <option value="" selected disabled>請選擇</option>
-          <option value="製造商">製造商 Manufacturer</option>
-          <option value="貿易商／進口商">貿易商／進口商 Trader / Importer</option>
-          <option value="經銷商／代理商">經銷商／代理商 Distributor / Agent</option>
-          <option value="零售商">零售商 Retailer</option>
-          <option value="品牌商">品牌商 Brand Owner</option>
-          <option value="其他">其他 Other</option>
+          <option value="採購">採購 Buyer</option>
+          <option value="經銷商">經銷商 Distributor</option>
+          <option value="鷹架公司">鷹架公司 Scaffolding Company</option>
+          <option value="模板公司">模板公司 Formwork Company</option>
         </select>
 
         <fieldset>
@@ -117,6 +119,6 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
   <script src="config.js?v=20261112-4"></script>
-  <script src="visitor.js?v=20261117-2"></script>
+  <script src="visitor.js?v=20261117-3"></script>
 </body>
 </html>

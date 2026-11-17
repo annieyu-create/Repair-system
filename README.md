@@ -47,7 +47,15 @@
 - `sw.js` 的 `CACHE_VERSION` 更新為 `repair-v20261117-2`，並加入訪客登錄頁檔案。
 
 #### 第一次設定（在 Supabase 後台）
-1. SQL Editor 執行 `supabase/expo_visitors.sql`（若已執行過舊版，改執行 `supabase/expo_visitors_upgrade_v2.sql`）。
+1. SQL Editor 執行 `supabase/expo_visitors.sql`。若已建過資料表：執行過第一版的請依序執行 `expo_visitors_upgrade_v2.sql`、`expo_visitors_upgrade_v3.sql`；執行過第二版的只需執行 `expo_visitors_upgrade_v3.sql`。
 2. Authentication → Users → Add user，建立要下載 Excel 的帳號（Email＋密碼）。
 3. SQL Editor 執行：`insert into public.expo_admins (user_id) select id from auth.users where email = '該帳號 email';`
 4. 建議到 Authentication → Sign In / Providers 關閉「Allow new users to sign up」，避免陌生人自行註冊（即使註冊了，沒加進 expo_admins 也讀不到名單）。
+
+### 展覽訪客：新增編號、日期，公司性質改為訪客性質
+- 新增「編號」：由資料庫依上傳順序自動產生 1、2、3…，手機不需填寫；Excel 第一欄即為編號，並依編號排序。
+- 新增「日期」（拜訪日期，必填）：手機預設帶入當天，可修改；連續登錄時會保留上一筆的日期。
+- 「公司性質」改為「訪客性質」，選項為：採購、經銷商、鷹架公司、模板公司。
+- 匯出頁的日期範圍改用「日期」欄位篩選；Excel 欄位順序：編號、日期、公司名稱、國別、人名、電話、公司網站、訪客性質、有興趣的品項、其他品項說明、討論事項、登錄人員、登錄時間。
+- 離線暫存的資料在上傳時才取得編號，所以編號代表「上傳順序」，不一定等於拜訪的先後。
+- 新增 `supabase/expo_visitors_upgrade_v3.sql`：已建表者用來補上編號（舊資料依登錄時間編號）與日期，並把舊的「經銷商／代理商」改為「經銷商」。

@@ -15,12 +15,13 @@
 
   // 文字欄位與中文名稱；required 為必填
   const TEXT_FIELDS = {
+    visit_date: { label: "日期", required: true },
     company_name: { label: "公司名稱", required: true },
     country: { label: "國別", required: true },
     contact_name: { label: "人名", required: true },
     phone: { label: "電話", required: false },
     website: { label: "公司網站", required: false },
-    company_type: { label: "公司性質", required: true },
+    visitor_type: { label: "訪客性質", required: true },
     discussion: { label: "討論事項", required: false },
     staff_name: { label: "登錄人員", required: false },
   };
@@ -52,8 +53,18 @@
     }
   }
 
-  // 登錄人員：這支手機填過一次就記住
+  const dateInput = document.getElementById("visit_date");
+
+  // 今天的日期（手機所在地時間），格式 YYYY-MM-DD
+  function today() {
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, "0");
+    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
+  }
+
+  // 登錄人員：這支手機填過一次就記住；日期預設今天
   staffInput.value = storeGet(STAFF_KEY, "");
+  dateInput.value = today();
 
   othersBox.addEventListener("change", () => {
     otherInput.hidden = !othersBox.checked;
@@ -157,7 +168,8 @@
     name.append(tag);
     const meta = document.createElement("div");
     meta.className = "meta";
-    meta.textContent = payload.contact_name + "・" + payload.country + "・" + timeFormat.format(new Date());
+    meta.textContent = payload.contact_name + "・" + payload.country + "・" +
+      payload.visit_date + " " + timeFormat.format(new Date());
     li.append(name, meta);
     recentList.prepend(li);
   }
@@ -170,9 +182,11 @@
     }
   }
 
-  function resetForm(staff) {
+  // 保留登錄人員與日期（同一天通常連續登錄多位訪客）
+  function resetForm(staff, date) {
     form.reset();
     staffInput.value = staff || "";
+    dateInput.value = date || today();
     otherInput.hidden = true;
     document.getElementById("company_name").focus();
   }
@@ -196,7 +210,7 @@
     if (result.ok) {
       showMessage("已登錄「" + payload.company_name + "」，謝謝！", "success");
       addRecent(payload, false);
-      resetForm(payload.staff_name);
+      resetForm(payload.staff_name, payload.visit_date);
       syncQueue();
       return;
     }
@@ -211,7 +225,7 @@
       showMessage("目前無法連線，已先存在這支手機，恢復網路後會自動上傳。", "info");
       addRecent(payload, true);
       renderPending();
-      resetForm(payload.staff_name);
+      resetForm(payload.staff_name, payload.visit_date);
       return;
     }
     showMessage("送出失敗：" + result.message, "error");

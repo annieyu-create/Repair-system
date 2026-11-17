@@ -17,20 +17,22 @@
     hour: "2-digit", minute: "2-digit", hour12: false,
   });
   const COLUMNS = [
-    { title: "登錄時間", width: 18, value: (r) => timeFormat.format(new Date(r.created_at)) },
+    { title: "編號", width: 8, value: (r) => r.visitor_no },
+    { title: "日期", width: 12, value: (r) => r.visit_date },
     { title: "公司名稱", width: 28, value: (r) => r.company_name },
     { title: "國別", width: 16, value: (r) => r.country },
     { title: "人名", width: 18, value: (r) => r.contact_name },
     { title: "電話", width: 18, value: (r) => r.phone || "" },
     { title: "公司網站", width: 26, value: (r) => r.website || "" },
-    { title: "公司性質", width: 16, value: (r) => r.company_type },
+    { title: "訪客性質", width: 16, value: (r) => r.visitor_type },
     { title: "有興趣的品項", width: 40, value: (r) => (r.interested_items || []).join(", ") },
     { title: "其他品項說明", width: 24, value: (r) => r.interested_other || "" },
     { title: "討論事項", width: 50, value: (r) => r.discussion || "" },
     { title: "登錄人員", width: 12, value: (r) => r.staff_name || "" },
+    { title: "登錄時間", width: 18, value: (r) => timeFormat.format(new Date(r.created_at)) },
   ];
-  const SELECT = "created_at, company_name, country, contact_name, phone, website, " +
-    "company_type, interested_items, interested_other, discussion, staff_name";
+  const SELECT = "visitor_no, visit_date, created_at, company_name, country, contact_name, phone, website, " +
+    "visitor_type, interested_items, interested_other, discussion, staff_name";
 
   function showMessage(el, text, type) {
     el.textContent = text;
@@ -48,16 +50,12 @@
   // 電腦端記住登入狀態，下次開啟不必重新登入
   const db = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-  // 依日期篩選；日期以這台電腦的時區計算
+  // 依「日期」欄位（拜訪日期）篩選
   function applyDates(query) {
     const from = $("date-from").value;
     const to = $("date-to").value;
-    if (from) query = query.gte("created_at", new Date(from + "T00:00:00").toISOString());
-    if (to) {
-      const end = new Date(to + "T00:00:00");
-      end.setDate(end.getDate() + 1);
-      query = query.lt("created_at", end.toISOString());
-    }
+    if (from) query = query.gte("visit_date", from);
+    if (to) query = query.lte("visit_date", to);
     return query;
   }
 
@@ -67,7 +65,7 @@
     const rows = [];
     for (let start = 0; ; start += PAGE) {
       const { data, error } = await applyDates(
-        db.from("expo_visitors").select(SELECT).order("created_at", { ascending: true })
+        db.from("expo_visitors").select(SELECT).order("visitor_no", { ascending: true })
       ).range(start, start + PAGE - 1);
       if (error) throw error;
       rows.push(...data);
@@ -109,7 +107,7 @@
 
   async function loadPreview() {
     const { data, error } = await db.from("expo_visitors").select(SELECT)
-      .order("created_at", { ascending: false }).limit(10);
+      .order("visitor_no", { ascending: false }).limit(10);
     if (error) {
       showMessage(exportMessage, "讀取失敗：" + error.message, "error");
       return;

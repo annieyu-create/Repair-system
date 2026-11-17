@@ -15,6 +15,12 @@ create table public.expo_visitors (
   -- 主鍵：由手機產生（離線暫存後重送時，可避免同一筆重複寫入）；沒給時由資料庫產生
   id uuid primary key default gen_random_uuid(),
 
+  -- 編號：由資料庫依新增順序自動產生 1、2、3…（不能由手機指定）
+  visitor_no bigint generated always as identity unique,
+
+  -- 日期：拜訪日期，手機預設帶入當天，可修改
+  visit_date date not null default current_date,
+
   -- 登錄時間：由資料庫自動產生
   created_at timestamptz not null default now(),
 
@@ -43,10 +49,10 @@ create table public.expo_visitors (
     constraint expo_visitors_website_len
     check (website is null or char_length(website) <= 200),
 
-  -- 公司性質（必填，固定選項）
-  company_type text not null
-    constraint expo_visitors_company_type_valid
-    check (company_type in ('製造商', '貿易商／進口商', '經銷商／代理商', '零售商', '品牌商', '其他')),
+  -- 訪客性質（必填，固定選項）
+  visitor_type text not null
+    constraint expo_visitors_visitor_type_valid
+    check (visitor_type in ('採購', '經銷商', '鷹架公司', '模板公司')),
 
   -- 有興趣的品項（可複選，只能是下列產品類別）
   interested_items text[] not null default '{}'
@@ -76,6 +82,8 @@ comment on table public.expo_visitors is '國外展覽訪客登錄（示範用�
 
 create index expo_visitors_created_at_idx
   on public.expo_visitors (created_at desc);
+create index expo_visitors_visit_date_idx
+  on public.expo_visitors (visit_date);
 
 -- -------------------------------------------------------------
 -- 可匯出名單的帳號清單
@@ -96,9 +104,9 @@ revoke all on table public.expo_admins from public, anon, authenticated;
 
 grant usage on schema public to anon, authenticated;
 
--- 手機（anon）：只能新增使用者要填的欄位與手機產生的 id
-grant insert (id, company_name, country, contact_name, phone, website,
-              company_type, interested_items, interested_other, discussion, staff_name)
+-- 手機（anon）：只能新增使用者要填的欄位與手機產生的 id（編號、登錄時間由資料庫產生）
+grant insert (id, visit_date, company_name, country, contact_name, phone, website,
+              visitor_type, interested_items, interested_other, discussion, staff_name)
   on table public.expo_visitors to anon;
 
 -- 登入的帳號：可讀取（實際能否讀到由下方 RLS 決定）
