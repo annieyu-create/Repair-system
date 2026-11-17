@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#2f5597">
+  <title>展覽訪客登錄</title>
+  <!-- PWA：手機可「加入主畫面」，以 App 方式開啟 -->
+  <link rel="manifest" href="visitor.webmanifest">
+  <link rel="icon" href="icons/visitor-icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/visitor-apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="訪客登錄">
+  <link rel="stylesheet" href="style.css?v=20261112-4">
+  <link rel="stylesheet" href="visitor.css?v=20261117-4">
+</head>
+<body>
+  <header class="site-header">
+    <h1>展覽訪客登錄 <span class="en">Visitor Registration</span></h1>
+    <p>國外展覽攤位訪客資料，送出後由業務同仁後續聯繫。</p>
+  </header>
+
+  <main>
+    <section class="card" aria-labelledby="form-title">
+      <h2 id="form-title">新增訪客</h2>
+      <form id="visitor-form" novalidate>
+        <label for="staff_name">登錄人員 <span class="en">Staff</span> <span class="opt">選填・本機記住</span></label>
+        <input id="staff_name" name="staff_name" type="text" maxlength="50" placeholder="填一次即可，之後這支手機會自動帶入">
+
+        <label for="visit_date">日期 <span class="en">Date</span> <span class="req">*</span></label>
+        <input id="visit_date" name="visit_date" type="date" required>
+        <p class="hint">編號由系統依登錄順序自動產生，不需填寫。</p>
+
+        <label for="company_name">公司名稱 <span class="en">Company</span> <span class="req">*</span></label>
+        <input id="company_name" name="company_name" type="text" maxlength="100" required autocomplete="organization">
+
+        <label for="country">國別 <span class="en">Country</span> <span class="req">*</span></label>
+        <input id="country" name="country" type="text" maxlength="50" required list="country-list" autocomplete="country-name" placeholder="可直接輸入或從清單選擇">
+        <datalist id="country-list">
+          <option value="美國 USA"></option>
+          <option value="加拿大 Canada"></option>
+          <option value="墨西哥 Mexico"></option>
+          <option value="巴西 Brazil"></option>
+          <option value="英國 UK"></option>
+          <option value="德國 Germany"></option>
+          <option value="法國 France"></option>
+          <option value="義大利 Italy"></option>
+          <option value="西班牙 Spain"></option>
+          <option value="荷蘭 Netherlands"></option>
+          <option value="波蘭 Poland"></option>
+          <option value="土耳其 Türkiye"></option>
+          <option value="阿拉伯聯合大公國 UAE"></option>
+          <option value="沙烏地阿拉伯 Saudi Arabia"></option>
+          <option value="印度 India"></option>
+          <option value="日本 Japan"></option>
+          <option value="韓國 Korea"></option>
+          <option value="中國大陸 China"></option>
+          <option value="香港 Hong Kong"></option>
+          <option value="新加坡 Singapore"></option>
+          <option value="馬來西亞 Malaysia"></option>
+          <option value="泰國 Thailand"></option>
+          <option value="越南 Vietnam"></option>
+          <option value="印尼 Indonesia"></option>
+          <option value="菲律賓 Philippines"></option>
+          <option value="澳洲 Australia"></option>
+          <option value="紐西蘭 New Zealand"></option>
+          <option value="南非 South Africa"></option>
+        </datalist>
+
+        <label for="contact_name">人名 <span class="en">Name</span> <span class="req">*</span></label>
+        <input id="contact_name" name="contact_name" type="text" maxlength="50" required autocomplete="name">
+
+        <label for="phone">電話 <span class="en">Phone</span> <span class="opt">選填</span></label>
+        <input id="phone" name="phone" type="text" inputmode="tel" maxlength="30" autocomplete="tel" placeholder="含國碼，例：+1 555 0100">
+
+        <label for="website">公司網站 <span class="en">Website</span> <span class="opt">選填</span></label>
+        <input id="website" name="website" type="text" inputmode="url" maxlength="200" autocomplete="url" placeholder="例：www.example.com">
+
+        <label for="visitor_type">訪客性質 <span class="en">Visitor Type</span> <span class="req">*</span></label>
+        <select id="visitor_type" name="visitor_type" required>
+          <option value="" selected disabled>請選擇</option>
+          <option value="採購">採購 Buyer</option>
+          <option value="經銷商">經銷商 Distributor</option>
+          <option value="鷹架公司">鷹架公司 Scaffolding Company</option>
+          <option value="模板公司">模板公司 Formwork Company</option>
+        </select>
+
+        <fieldset>
+          <legend>有興趣的品項 <span class="en">Products of Interest</span> <span class="opt">可複選</span></legend>
+          <div class="checks">
+            <label><input type="checkbox" name="interested_items" value="Scaffolding Accessories"> Scaffolding Accessories</label>
+            <label><input type="checkbox" name="interested_items" value="Ring System Scaffolding"> Ring System Scaffolding</label>
+            <label><input type="checkbox" name="interested_items" value="Formwork Accessories"> Formwork Accessories</label>
+            <label><input type="checkbox" name="interested_items" value="System Formwork"> System Formwork</label>
+            <label><input type="checkbox" name="interested_items" value="Others" id="items-others"> Others</label>
+          </div>
+          <input id="interested_other" name="interested_other" type="text" maxlength="200" placeholder="Others 品項說明" hidden>
+        </fieldset>
+
+        <label for="discussion">討論事項 <span class="en">Discussion Notes</span> <span class="opt">選填</span></label>
+        <textarea id="discussion" name="discussion" rows="5" maxlength="2000" placeholder="例：詢價數量、交期、樣品需求、後續聯繫方式"></textarea>
+
+        <button id="submit-btn" type="submit">送出登錄</button>
+        <div id="pending-bar" class="pending-bar" hidden>
+          <span id="pending-text"></span>
+          <button id="sync-btn" type="button" class="secondary">立即上傳</button>
+        </div>
+        <p id="form-message" class="message" role="status" aria-live="polite" hidden></p>
+      </form>
+    </section>
+
+    <section class="card" aria-labelledby="recent-title">
+      <h2 id="recent-title">本機剛登錄的訪客</h2>
+      <p class="note">為保護訪客個資，手機上不顯示全部名單；這裡只列出這台手機這次開啟後登錄的公司。所有手機的資料會集中在同一個資料庫，請用電腦開啟<a href="visitor-admin.html">名單匯出頁</a>下載 Excel。</p>
+      <ul id="recent-list" class="recent-list"></ul>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="config.js?v=20261112-4"></script>
+  <script src="visitor.js?v=20261117-3"></script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* 展覽訪客登錄頁：沿用 style.css，只補上本頁需要的樣式 */
+.en { font-weight: 400; font-size: 0.85em; opacity: 0.75; }
+.site-header h1 .en { display: block; font-size: 0.95rem; opacity: 0.85; }
+.opt {
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: var(--info-bg);
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+.note { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.hint { margin: 6px 0 0; color: var(--muted); font-size: 0.85rem; }
+#visit_date { padding: 12px; min-height: 48px; }
+.recent-list { list-style: none; padding: 0; margin: 12px 0 0; }
+.recent-list li {
+  border-top: 1px solid var(--border);
+  padding: 10px 0;
+  overflow-wrap: anywhere;
+}
+.recent-list li:first-child { border-top: 0; }
+.recent-list .meta { color: var(--muted); font-size: 0.85rem; }
+
+/* 有興趣的品項：複選框，每列一個，方便手指點選 */
+.checks { display: grid; gap: 8px; }
+.checks label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 10px 12px;
+  min-height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+}
+.checks input { width: 20px; height: 20px; accent-color: var(--primary); flex: none; }
+.checks label:has(input:checked) { border-color: var(--primary); background: var(--info-bg); }
+#interested_other { margin-top: 8px; }
+
+/* 尚未上傳（離線暫存）提示 */
+.pending-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: #fff4e0;
+  color: #8a5a00;
+}
+.pending-bar[hidden] { display: none; }
+.recent-list .tag {
+  font-size: 0.75rem;
+  padding: 1px 8px;
+  border-radius: 999px;
+  margin-left: 6px;
+  background: var(--success-bg);
+  color: var(--success-text);
+  font-weight: 400;
+}
+.recent-list .tag.pending { background: #fff4e0; color: #8a5a00; }
+
+/* 匯出頁 */
+.admin-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; }
+.admin-row > div { flex: 1 1 140px; }
+input[type="date"], input[type="email"], input[type="password"] {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+}
+.primary-btn { width: 100%; margin-top: 16px; background: var(--primary); color: #fff; font-weight: 600; }
+.primary-btn:hover { background: var(--primary-dark); }
+.table-wrap { overflow-x: auto; margin-top: 12px; }
+.preview { border-collapse: collapse; font-size: 0.85rem; min-width: 640px; width: 100%; }
+.preview th, .preview td { border-bottom: 1px solid var(--border); padding: 6px 8px; text-align: left; vertical-align: top; }
+.preview th { background: var(--info-bg); white-space: nowrap; }
+.user-line { display: flex; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); }
